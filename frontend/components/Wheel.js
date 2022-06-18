@@ -1,6 +1,7 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-export default function Wheel(props) {
+export function Wheel(props) {
   return (
     <div id="wrapper">
       <div id="wheel">
@@ -18,3 +19,5 @@ export default function Wheel(props) {
     </div>
   )
 }
+
+export default connect(st => st) (Wheel)
