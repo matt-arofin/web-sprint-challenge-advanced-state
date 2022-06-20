@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import * as actionCreators from '../state/action-creators'
 
 export function Form(props) {
-  console.log(props.form)
+  // console.log(props.form)
 
   const onChange = evt => {
     const {id, value} = evt.target;
@@ -14,7 +14,8 @@ export function Form(props) {
   const onSubmit = evt => {
     const {postQuiz, form} = props;
     evt.preventDefault();
-    postQuiz(form)
+    console.log(form);
+    // postQuiz(form)
   }
 
   const isDisabled = () => {
@@ -24,13 +25,14 @@ export function Form(props) {
     } else { return false}
   }
 
+  const {form} = props
   return (
     <form id="form" onSubmit={onSubmit}>
       <h2>Create New Quiz</h2>
-      <input maxLength={50} onChange={onChange} id="newQuestion" placeholder="Enter question" />
-      <input maxLength={50} onChange={onChange} id="newTrueAnswer" placeholder="Enter true answer" />
-      <input maxLength={50} onChange={onChange} id="newFalseAnswer" placeholder="Enter false answer" />
-      <button id="submitNewQuizBtn" disabled={isDisabled}>Submit new quiz</button>
+      <input maxLength={50} onChange={onChange} id="newQuestion" placeholder="Enter question" value={form.newQuestion} />
+      <input maxLength={50} onChange={onChange} id="newTrueAnswer" placeholder="Enter true answer" value={form.newTrueAnswer}/>
+      <input maxLength={50} onChange={onChange} id="newFalseAnswer" placeholder="Enter false answer" value={form.newFalseAnswer}/>
+      <button id="submitNewQuizBtn" disabled={isDisabled()}>Submit new quiz</button>
     </form>
   )
 }
