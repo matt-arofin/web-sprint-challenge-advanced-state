@@ -7,31 +7,7 @@ export function Wheel(props) {
 
 
   const {moveClockwise, moveCounterClockwise} = props
-  console.log("current props", props)
-
-  // write a way to identify all 'cog' elements
-  const wheelArray = document.getElementsByClassName('cog');
-  console.log(wheelArray)
-  // wheelArray.forEach((cog, idx) => {
-  //   cog.classList.remove('active');
-  //   cog.textContent = ''
-  //   if(idx == props.wheel){
-  //     cog[idx].textContent = 'B'
-  //     cog.classList.add('active')
-  //   }
-  // })
-  // console.log(wheelArray)
-  // map over the array created
-  
-  // map over array/list elements previously identified and first remove active from previous item and append it to the next one
-
-  // if(evt.target.id == 'clockwiseBtn'){
-  //   console.log('moveClockwise')
-  //   return props.moveClockwise()
-  // } else{
-  //   return props.moveCounterClockwise()
-  // }
-  // console.log(evt.target)
+  // console.log("current props", props)
 
   // Display logic to implement
   // {props.wheel == 0 ? 'cog active' : 'cog'}
