@@ -1,21 +1,14 @@
 // ❗ You don't need to add extra reducers to achieve MVP
-import { combineReducers } from 'redux'
-import { 
-  MOVE_CLOCKWISE,
-  MOVE_COUNTERCLOCKWISE,
-  SET_QUIZ_INTO_STATE,
-  SET_INFO_MESSAGE,
-  INPUT_CHANGE,
-  RESET_FORM
-} from './action-types'
+import { combineReducers } from 'redux';
+import * as types from './action-types';
 
 const initialWheelState = 0
 function wheel(state = initialWheelState, action) {
   switch(action.type){
-    case MOVE_CLOCKWISE:
-      return {...state, /* change position of wheel by -1 */}
-    case MOVE_COUNTERCLOCKWISE:
-      return {...state, /* Change position of wheel by +1 */}
+    case types.MOVE_CLOCKWISE:
+      return state == 0 ? state = 5 : state-1 /* change position of wheel by -1 */
+    case types.MOVE_COUNTERCLOCKWISE:
+      return state == 5 ? state = 0 : state+1 /* Change position of wheel by +1 */
     default:
       return state
   }
@@ -24,7 +17,7 @@ function wheel(state = initialWheelState, action) {
 const initialQuizState = null
 function quiz(state = initialQuizState, action) {
   switch(action.type){
-    case SET_QUIZ_INTO_STATE:
+    case types.SET_QUIZ_INTO_STATE:
       return {}
     default:
       return state
@@ -34,7 +27,7 @@ function quiz(state = initialQuizState, action) {
 const initialSelectedAnswerState = null
 function selectedAnswer(state = initialSelectedAnswerState, action) {
   switch(action.type){
-    case SET_QUIZ_INTO_STATE:
+    case types.SET_QUIZ_INTO_STATE:
       return {}
     default:
       return state
@@ -44,7 +37,7 @@ function selectedAnswer(state = initialSelectedAnswerState, action) {
 const initialMessageState = ''
 function infoMessage(state = initialMessageState, action) {
   switch(action.type){
-    case SET_INFO_MESSAGE:
+    case types.SET_INFO_MESSAGE:
       return {}
     default:
       return state
@@ -58,9 +51,9 @@ const initialFormState = {
 }
 function form(state = initialFormState, action) {
   switch(action.type){
-    case RESET_FORM:
+    case types.RESET_FORM:
       return {}
-    case INPUT_CHANGE:
+    case types.INPUT_CHANGE:
       return {}
     default:
       return state

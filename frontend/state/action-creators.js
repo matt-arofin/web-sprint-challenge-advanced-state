@@ -1,41 +1,34 @@
 import axios from 'axios';
-import { 
-  MOVE_CLOCKWISE,
-  MOVE_COUNTERCLOCKWISE,
-  SET_QUIZ_INTO_STATE,
-  SET_INFO_MESSAGE,
-  INPUT_CHANGE,
-  RESET_FORM
-} from './action-types'
-// import * as actions from './action-types'; /* Actions types as variables assigned to strings */
+import * as types from './action-types';
 
 // ❗ You don't need to add extra action creators to achieve MVP
 export function moveClockwise() {
-  return {type: MOVE_CLOCKWISE}
- } /* Use a ternary like {if current index == 5 ? set current = 0 : return current index +1} */
+  return {type: types.MOVE_CLOCKWISE} /* no payload shown in redux devtools */
+} /* Use a ternary like {if current index == 5 ? set current = 0 : return current index +1} */
 
 export function moveCounterClockwise() {
-  return {type: MOVE_COUNTERCLOCKWISE}
+  return {type: types.MOVE_COUNTERCLOCKWISE} /* no payload shown in redux devtools */
 } /* Use a ternary like {if current index == 0 ? set current = 5 : return current index -1} */
 
 export function selectAnswer() {
-  return {type: SET_QUIZ_INTO_STATE}
+  return {type: types.SET_QUIZ_INTO_STATE}
 }
 
 export function setMessage() {
-  return {type: SET_INFO_MESSAGE}
+  return {type: types.SET_INFO_MESSAGE}
 }
 
 export function setQuiz() {
-  // return {type: SET_QUIZ_INTO_STATE, payload: action.payload} ??
+  return {type: types.SET_QUIZ_INTO_STATE, payload: {/*  */}} 
 }
 
-export function inputChange() {
-  return {type: INPUT_CHANGE, payload: {/* inputId, value */}} /* payload contains: inputID (evt.target.id) + value (evt.target.value) */
+export function inputChange({name, value}) {
+  return {
+    type: types.INPUT_CHANGE, payload: {name, value}} /* payload contains: inputID (evt.target.id) + value (evt.target.value) */
 }
 
 export function resetForm() {
-  return {type: RESET_FORM}
+  return {type: types.RESET_FORM}
 }
 
 // ❗ Async action creators
@@ -47,7 +40,7 @@ export function fetchQuiz() {
     axios.get('http://localhost:9000/api/quiz/next')
       .then(res => {
         console.log('Fetch quiz action: ', res)
-        dispatch({type: SET_QUIZ_INTO_STATE, payload: res.data.result})
+        dispatch({type: types.SET_QUIZ_INTO_STATE, payload: res.data})
       })
       .catch(err => console.error({err}))
   }
@@ -58,6 +51,8 @@ export function postAnswer() {
     // - Dispatch an action to reset the selected answer state
     // - Dispatch an action to set the server message to state
     // - Dispatch the fetching of the next quiz
+    // post url = http://localhost:9000/api/quiz/answer
+    // post success payload {'quiz_id', 'answer_id'}
   }
 }
 export function postQuiz() {
@@ -65,6 +60,9 @@ export function postQuiz() {
     // On successful POST:
     // - Dispatch the correct message to the the appropriate state
     // - Dispatch the resetting of the form
+    // post url = http://localhost:9000/api/quiz/new
+    // post success payload {'question_text', 'true_answer_text', 'false_answer_text}
   }
 }
+
 // ❗ On promise rejections, use log statements or breakpoints, and put an appropriate error message in state
