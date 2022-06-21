@@ -12,10 +12,12 @@ export function Form(props) {
   }
 
   const onSubmit = evt => {
-    const {postQuiz, form} = props;
+    const {postQuiz, setMessage, resetForm, form} = props;
     evt.preventDefault();
     console.log(form);
-    // postQuiz(form)
+    postQuiz(form);
+    // setMessage(form);
+    // resetForm();
   }
 
   const isDisabled = () => {
