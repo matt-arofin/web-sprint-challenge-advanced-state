@@ -58,12 +58,13 @@ export function postAnswer(questionId, answerId) {
     // post url = http://localhost:9000/api/quiz/answer
     // post success payload {'quiz_id', 'answer_id'}
     // answer_Id coming from selectAnswer action creator
+    console.log('postAnswer action dispatch', {'quiz_id': questionId, 'answer_id': answerId})
     axios.post('http://localhost:9000/api/quiz/answer', {'quiz_id': questionId, 'answer_id': answerId})
       .then(res => {
         console.log('Response from successful answer post: ', res)
-        dispatch({type: types.SET_QUIZ_INTO_STATE, payload:null})
-        // dispatch({type: types.SET_INFO_MESSAGE, payload:res.data.message})
-        // dispatch({type: types.SET_QUIZ_INTO_STATE, payload:})
+        dispatch({type: types.SET_SELECTED_ANSWER, payload:null})
+        dispatch({type: types.SET_INFO_MESSAGE, payload:res.data.message})
+        dispatch(fetchQuiz)
       })
       .catch(err => console.error(err))
   }

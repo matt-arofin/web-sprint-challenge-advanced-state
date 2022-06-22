@@ -5,22 +5,22 @@ import * as actions from '../state/action-creators'
 export function Quiz(props) {
   
   const {quiz, fetchQuiz } = props
-  console.log('Quiz state change: ', quiz, quiz == true)
-  console.log(props)
+  // console.log('Quiz state change: ', quiz, quiz == true)
+  // console.log(props)
   useEffect(() => fetchQuiz(), [])
   // console.log('quiz set into state', quiz)
 
   const handleSelected = evt => {
     const {selectAnswer} = props
-    console.log(evt.target)
+    // console.log(evt.target)
     selectAnswer(evt.target.id)
   }
 
   const handleSubmit = evt => {
     evt.preventDefault()
-    const {postAnswer, quiz_id, selectedAnswer} = props
+    const {postAnswer, quiz, selectedAnswer} = props
     console.log(evt.target)
-    postAnswer(quiz_id, selectedAnswer)
+    postAnswer(quiz.quiz_id, selectedAnswer)
     fetchQuiz()
   }
 
@@ -34,14 +34,14 @@ export function Quiz(props) {
             <h2>{quiz.question}</h2>
 
             <div id="quizAnswers">
-              <div className="answer selected">
+              <div className={props.selectedAnswer == quiz.answers[0].answer_id ? "answer selected": "answer"}>
                 {quiz.answers[0].text}
                 <button id={quiz.answers[0].answer_id} onClick={handleSelected}>
                   {props.selectedAnswer == quiz.answers[0].answer_id ? "SELECTED" : "select"}
                 </button>
               </div>
 
-              <div className="answer">
+              <div className={props.selectedAnswer == quiz.answers[1].answer_id ? "answer selected": "answer"}>
               {quiz.answers[1].text}
                 <button id={quiz.answers[1].answer_id} onClick={handleSelected}>
                 {props.selectedAnswer == quiz.answers[1].answer_id ? "SELECTED" : "select"}
@@ -49,7 +49,7 @@ export function Quiz(props) {
               </div>
             </div>
 
-            <button id="submitAnswerBtn" onClick={handleSubmit}>Submit answer</button>
+            <button id="submitAnswerBtn" onClick={handleSubmit} disabled={props.selectedAnswer ? false : true}>Submit answer</button>
           </>
         ) : 'Loading next quiz...' 
       }
