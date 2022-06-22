@@ -11,7 +11,7 @@ export function moveCounterClockwise() {
 } /* Use a ternary like {if current index == 0 ? set current = 5 : return current index -1} */
 
 export function selectAnswer(answer_id) {
-  return {type: types.SET_QUIZ_INTO_STATE, payload: answer_id}
+  return {type: types.SET_SELECTED_ANSWER, payload: answer_id}
   /* Correct answer info message payload: 'Nice job! That was the correct answer */
   /* Incorrect answer info message payload: 'What a shame! That was the incorrect answer */
 }
@@ -40,15 +40,16 @@ export function fetchQuiz() {
     // First, dispatch an action to reset the quiz state (so the "Loading next quiz..." message can display)
     // On successful GET:
     // - Dispatch an action to send the obtained quiz to its state
+    dispatch({type: types.SET_QUIZ_INTO_STATE, payload: null})
     axios.get('http://localhost:9000/api/quiz/next')
       .then(res => {
-        console.log('Fetch quiz action: ', res)
+        // console.log('Fetch quiz action: ', res)
         dispatch({type: types.SET_QUIZ_INTO_STATE, payload: res.data})
       })
       .catch(err => console.error({err}))
   }
 }
-export function postAnswer({questionId, answerId}) {
+export function postAnswer(questionId, answerId) {
   return function (dispatch) {
     // On successful POST:
     // - Dispatch an action to reset the selected answer state
@@ -56,8 +57,14 @@ export function postAnswer({questionId, answerId}) {
     // - Dispatch the fetching of the next quiz
     // post url = http://localhost:9000/api/quiz/answer
     // post success payload {'quiz_id', 'answer_id'}
+    // answer_Id coming from selectAnswer action creator
     axios.post('http://localhost:9000/api/quiz/answer', {'quiz_id': questionId, 'answer_id': answerId})
-      .then(res => console.log('Response from successful answer post: ', res))
+      .then(res => {
+        console.log('Response from successful answer post: ', res)
+        dispatch({type: types.SET_QUIZ_INTO_STATE, payload:null})
+        // dispatch({type: types.SET_INFO_MESSAGE, payload:res.data.message})
+        // dispatch({type: types.SET_QUIZ_INTO_STATE, payload:})
+      })
       .catch(err => console.error(err))
   }
 }
