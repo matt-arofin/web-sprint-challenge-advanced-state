@@ -17,8 +17,7 @@ export function selectAnswer(answer_id) {
 }
 
 export function setMessage() {
-  console.log('Heres the message being set: ')
-  return {type: types.SET_INFO_MESSAGE/* , payload: `Congrats: "${form.newQuestion}" is a great question!` */}
+  return {type: types.SET_INFO_MESSAGE}
 }
 
 export function setQuiz() {
@@ -81,7 +80,6 @@ export function postQuiz(form) {
         console.log('postQuiz success: ', res)
         const newQuestion = res.data
         // dispatch({type: types.SET_QUIZ_INTO_STATE, payload: newQuestion})
-        // console.log('dispatching successful newQuestion post here:', {type: types.SET_INFO_MESSAGE, payload: `Congrats: ${newQuestion.newQuestion} is a great question!`})
         dispatch({type: types.SET_INFO_MESSAGE, payload: `Congrats: "${newQuestion.question}" is a great question!`})
         dispatch({type: types.RESET_FORM})
       })

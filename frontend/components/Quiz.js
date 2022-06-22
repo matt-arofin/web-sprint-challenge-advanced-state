@@ -7,7 +7,9 @@ export function Quiz(props) {
   const {quiz, fetchQuiz } = props
   // console.log('Quiz state change: ', quiz, quiz == true)
   // console.log(props)
-  useEffect(() => fetchQuiz(), [])
+  if(!props.selectedAnswer){
+    useEffect(() => fetchQuiz(), [])
+  }
   // console.log('quiz set into state', quiz)
 
   const handleSelected = evt => {
