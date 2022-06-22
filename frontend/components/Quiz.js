@@ -23,7 +23,6 @@ export function Quiz(props) {
     const {postAnswer, quiz, selectedAnswer} = props
     console.log(evt.target)
     postAnswer(quiz.quiz_id, selectedAnswer)
-    fetchQuiz()
   }
 
   return (

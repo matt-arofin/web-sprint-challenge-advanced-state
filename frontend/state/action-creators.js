@@ -63,7 +63,7 @@ export function postAnswer(questionId, answerId) {
         console.log('Response from successful answer post: ', res)
         dispatch({type: types.SET_SELECTED_ANSWER, payload:null})
         dispatch({type: types.SET_INFO_MESSAGE, payload:res.data.message})
-        dispatch(fetchQuiz)
+        dispatch(fetchQuiz())
       })
       .catch(err => console.error(err))
   }
